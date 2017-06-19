@@ -1,0 +1,28 @@
+package com.Nvr.Backend.model;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
+public class Carts {
+	
+	@Id
+	@GeneratedValue
+	int id;
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public int getGrandtotal() {
+		return grandtotal;
+	}
+	public void setGrandtotal(int grandtotal) {
+		this.grandtotal = grandtotal;
+	}
+	int grandtotal;
+	
+
+}

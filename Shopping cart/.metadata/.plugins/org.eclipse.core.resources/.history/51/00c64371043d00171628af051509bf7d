@@ -1,0 +1,102 @@
+package com.Nvr.Backend.daoimp;
+
+import java.util.List;
+
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.Nvr.Backend.dao.SupplierDAO;
+import com.Nvr.Backend.model.Category;
+import com.Nvr.Backend.model.Supplier;
+
+@Repository("supplierDao")
+@Transactional
+public class SupplierDAOImp implements SupplierDAO
+{
+	@Autowired
+    private SessionFactory sessionFactory;
+    
+    public SupplierDAOImp(SessionFactory sessionFactory)
+    {
+    	this.sessionFactory=sessionFactory;
+    }
+    
+    
+    public void insertSupplier(Supplier supplier)
+    {
+    	Session session=sessionFactory.getCurrentSession();
+    	session.save(supplier);
+    }
+    
+   
+    public void deleteSupplier(int sid)
+    {
+    	Session session=sessionFactory.openSession();
+    	Supplier sup=(Supplier) session.get(Supplier.class,sid);
+    	session.delete(sup);
+    	session.flush();
+    	session.close();
+    	
+    }
+    
+    public List<Supplier> showSupplier()
+    {
+    	Session session=sessionFactory.openSession();
+    	@SuppressWarnings("unchecked")
+		Query query=session.createQuery("from Supplier");
+    	List<Supplier> list=query.list();
+    	session.flush();
+    	session.close();
+    	return list;
+    }
+
+
+	
+	public Supplier getSupplier(int sid) 
+	{
+		Session session=sessionFactory.openSession();
+		Supplier sup=(Supplier) session.get(Supplier.class, sid);
+		session.flush();
+		session.close();
+		return sup;
+	}
+
+
+	
+	public void updateSupplier(Supplier supplier) 
+	{
+		Session session=sessionFactory.openSession();
+		session.update(supplier);
+		session.flush();
+		session.close();
+		
+		
+	}
+
+	@Transactional
+	public Supplier getByName(String name) {
+		
+		String hql = "from supplier where sname='" + name + "'";
+
+		Query query = sessionFactory.getCurrentSession().createQuery(hql);
+		
+		@SuppressWarnings("unchecked")
+		List<Supplier> listCategory = (List<Supplier>) query.list();
+
+		if (listCategory != null && !listCategory.isEmpty()) {
+			
+			return listCategory.get(0);
+		}
+
+		return null;
+	}
+
+	
+    
+    
+    
+}

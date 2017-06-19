@@ -1,0 +1,9 @@
+package com.Nvr.Backend.model;
+
+import javax.persistence.Entity;
+
+@Entity
+public class Customer 
+{
+	
+}

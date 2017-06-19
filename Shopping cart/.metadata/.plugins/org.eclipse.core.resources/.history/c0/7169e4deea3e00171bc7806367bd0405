@@ -1,0 +1,6 @@
+package com.Nvr.Backend.dao;
+
+public interface UsersDAO 
+{
+	
+}

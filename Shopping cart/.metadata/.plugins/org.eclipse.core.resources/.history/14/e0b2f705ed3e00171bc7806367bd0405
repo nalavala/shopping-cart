@@ -1,0 +1,27 @@
+package com.Nvr.Backend.model;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.validation.constraints.Size;
+import javax.persistence.*;
+
+import org.hibernate.validator.constraints.*;
+import org.hibernate.validator.constraints.NotEmpty;
+
+@Entity
+public class Customer 
+{
+	@Id
+	@GeneratedValue
+	private int id;
+	@NotEmpty
+	String firstname;
+	@NotEmpty
+	String lastname;
+	@NotEmpty
+	@Email
+	@Column(unique=true,nullable=false)
+	String email;
+	@Size(min=10,max=10)
+	int phone;
+}

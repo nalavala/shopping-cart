@@ -1,0 +1,7 @@
+package com.Nvr.Backend.dao;
+
+
+public interface CustomersDAO 
+{
+	void savecustomer(Customers customer);
+}

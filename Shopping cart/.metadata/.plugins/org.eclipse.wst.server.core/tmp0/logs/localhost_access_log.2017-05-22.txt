@@ -1,0 +1,5 @@
+127.0.0.1 - - [22/May/2017:15:43:59 +0530] "GET / HTTP/1.1" 404 951
+0:0:0:0:0:0:0:1 - - [22/May/2017:15:44:01 +0530] "GET /Frontend/ HTTP/1.1" 200 459
+0:0:0:0:0:0:0:1 - - [22/May/2017:15:44:04 +0530] "GET /Frontend/Product HTTP/1.1" 200 4480
+0:0:0:0:0:0:0:1 - - [22/May/2017:15:44:04 +0530] "GET /Frontend/resources/css/custom.css HTTP/1.1" 404 949
+0:0:0:0:0:0:0:1 - - [22/May/2017:15:44:04 +0530] "GET /Frontend/resources/js/jquery.js HTTP/1.1" 304 -

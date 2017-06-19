@@ -1,0 +1,80 @@
+package com.Nvr.Backend.config;
+
+import java.util.Properties;
+
+import javax.sql.DataSource;
+
+import org.hibernate.SessionFactory;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.orm.hibernate4.HibernateTransactionManager;
+import org.springframework.orm.hibernate4.LocalSessionFactoryBuilder;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import com.Nvr.Backend.model.*;
+
+
+@Configuration
+@ComponentScan("com.Nvr.Backend.*")
+@EnableTransactionManagement
+public class ApplicationConfig 
+{
+	public ApplicationConfig() {
+		System.out.println("ApplicationConfic created.........");
+	}
+
+	public DataSource getMYSQLDataSource() {
+		System.out.println("data source enteres.......");
+		DriverManagerDataSource datasource = new DriverManagerDataSource();
+		datasource.setDriverClassName("com.mysql.jdbc.Driver");
+		datasource.setUrl("jdbc:mysql://localhost/niit");
+		datasource.setUsername("root");
+		datasource.setPassword("7396");
+		System.out.println("data source creates......");
+		return datasource;
+	}
+
+	public Properties getHibernateProperties() {
+		System.out.println("properties entered..........");
+		Properties hibernate_prop = new Properties();
+		hibernate_prop.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
+		hibernate_prop.put("hibernate.show_sql", "true");
+		hibernate_prop.setProperty("hibernate.hbm2ddl.auto", "update");
+		System.out.println("properries object created");
+		return hibernate_prop;
+	}
+
+	
+	@Bean(name = "sessionFactory")
+	public SessionFactory getSessionFactory() {
+		System.out.println("session factory entered........");
+		LocalSessionFactoryBuilder builder = new LocalSessionFactoryBuilder(getMYSQLDataSource());
+		builder.addProperties(getHibernateProperties());
+		builder.addAnnotatedClass(Product.class);
+		builder.addAnnotatedClass(User.class);
+		builder.addAnnotatedClass(Supplier.class);
+		builder.addAnnotatedClass(Category.class);
+		builder.addAnnotatedClass(Customer.class);
+		builder.addAnnotatedClass(Users.class);
+		builder.addAnnotatedClass(BillingAddress.class);
+		builder.addAnnotatedClass(ShippingAddress.class);
+		builder.addAnnotatedClass(Cart.class);
+		builder.addAnnotatedClass(Carts.class);
+		builder.addAnnotatedClass(Authorities.class);
+		SessionFactory session = builder.buildSessionFactory();
+		System.out.println("sessionfactory created.............");
+		return session;
+
+	}
+
+	
+	@Bean(name = "transactionManager")
+	public HibernateTransactionManager getTransactionManager(SessionFactory sessionFactory) {
+		System.out.println("Transaction Manager");
+		HibernateTransactionManager transactionManager = new HibernateTransactionManager(sessionFactory);
+		return transactionManager;
+	}
+
+}

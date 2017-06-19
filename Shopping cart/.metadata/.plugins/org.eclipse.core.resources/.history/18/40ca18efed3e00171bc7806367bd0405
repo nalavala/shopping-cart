@@ -1,0 +1,6 @@
+package com.Nvr.Backend.model;
+
+public class shippingAddress 
+{
+
+}
